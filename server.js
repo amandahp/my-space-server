@@ -18,6 +18,9 @@ const columns = require("./routes/columns");
 
 const app = express();
 
+// Body parser
+app.use(express.json());
+
 // Logger
 app.use(logger);
 
