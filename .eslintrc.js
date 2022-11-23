@@ -20,6 +20,5 @@ module.exports = {
     camelcase: "off",
     "no-underscore-dangle": "off",
     "no-unused-vars": ["error", { argsIgnorePattern: "next" }],
-    "import/extensions": ["error", "always", { ignorePackages: true }],
   },
 };
