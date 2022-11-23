@@ -1,5 +1,6 @@
 /* eslint-disable consistent-return */
 const Column = require("../models/Column");
+const ErrorResponse = require("../utils/errorResponse");
 
 // @desc    Get all columns
 // @route   GET /api/v1/columns
@@ -11,7 +12,7 @@ exports.getColumn = async (req, res, next) => {
       .status(200)
       .json({ success: true, count: columns.length, data: columns });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
 
@@ -20,11 +21,18 @@ exports.getColumn = async (req, res, next) => {
 // @access  Private
 exports.createColumn = async (req, res, next) => {
   try {
-    const column = await Column.create(req.body);
+    const { title, order, userId } = req.body;
 
+    if (!title || !order || !userId) {
+      return next(
+        new ErrorResponse(`Title, order and userId are required fields`, 422)
+      );
+    }
+
+    const column = await Column.create(req.body);
     res.status(201).json({ success: true, data: column });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
 
@@ -39,12 +47,14 @@ exports.updateColumn = async (req, res, next) => {
     });
 
     if (!column) {
-      return res.status(400).json({ success: false });
+      return next(
+        new ErrorResponse(`Column not found with id of ${req.body.id}`, 422)
+      );
     }
 
     res.status(200).json({ sucess: true, data: column });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
 
@@ -56,11 +66,13 @@ exports.deleteColumn = async (req, res, next) => {
     const column = await Column.findByIdAndDelete(req.params.id);
 
     if (!column) {
-      return res.status(400).json({ success: false });
+      return next(
+        new ErrorResponse(`Column not found with id of ${req.body.id}`, 422)
+      );
     }
 
     res.status(200).json({ sucess: true, data: {} });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };

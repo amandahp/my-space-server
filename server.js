@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 // eslint-disable-next-line no-unused-vars
 const colors = require("colors");
 
+const errorHandler = require("./middleware/error");
 const connectDB = require("./config/db");
 const logger = require("./middleware/logger");
 
@@ -26,6 +27,8 @@ app.use(logger);
 
 // Routes
 app.use("/api/v1/columns", columns);
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 8080;
 
