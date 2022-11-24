@@ -17,6 +17,7 @@ connectDB();
 // Routes
 const columns = require("./routes/columns");
 const cards = require("./routes/cards");
+const auth = require("./routes/auth");
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(logger);
 // Routes
 app.use("/api/v1/columns", columns);
 app.use("/api/v1/cards", cards);
+app.use("/api/v1/auth", auth);
 
 app.use(errorHandler);
 
