@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cors = require("cors");
 const colors = require("colors");
 
 const errorHandler = require("./middleware/error");
@@ -24,6 +25,9 @@ app.use(express.json());
 
 // Logger
 app.use(logger);
+
+// Cors
+app.use(cors());
 
 // Routes
 app.use("/api/v1/columns", columns);
