@@ -6,14 +6,11 @@ const ErrorResponse = require("../utils/errorResponse");
 // @access  Private
 exports.createCard = async (req, res, next) => {
   try {
-    const { title, content, order, userId, columnId } = req.body;
+    const { title, content, order, column } = req.body;
 
-    if (!title || !order || !userId || !columnId) {
+    if (!title || !order || !column) {
       return next(
-        new ErrorResponse(
-          `Title, order, userId and columnId are required fields`,
-          422
-        )
+        new ErrorResponse(`Title, order and columnId are required fields`, 422)
       );
     }
 

@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const { Schema } = mongoose;
+
 const CardSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -11,13 +13,10 @@ const CardSchema = new mongoose.Schema({
     type: Number,
     required: [true, "Please add a order"],
   },
-  userId: {
-    type: Number,
-    required: [true, "Please add a userId"],
-  },
-  columnId: {
-    type: Number,
-    required: [true, "Please add a columnId"],
+  column: {
+    type: Schema.Types.ObjectId,
+    ref: "Column",
+    required: [true, "Please add column id"],
   },
 });
 

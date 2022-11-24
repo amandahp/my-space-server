@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+const Card = require("../models/Card");
 const Column = require("../models/Column");
 const ErrorResponse = require("../utils/errorResponse");
 
@@ -6,10 +8,22 @@ const ErrorResponse = require("../utils/errorResponse");
 // @access  Private
 exports.getColumn = async (req, res, next) => {
   try {
-    const columns = await Column.find();
-    res
-      .status(200)
-      .json({ success: true, count: columns.length, data: columns });
+    const columns = await Column.find({
+      userId: mongoose.Types.ObjectId(req.headers.userid),
+    });
+
+    const columnsWithCards = await Promise.all(
+      columns.map(async (column) => ({
+        ...column.toObject(),
+        cards: await Card.find({ column: column._id }),
+      }))
+    );
+
+    res.status(200).json({
+      success: true,
+      count: columnsWithCards.length,
+      data: columnsWithCards,
+    });
   } catch (err) {
     next(err);
   }

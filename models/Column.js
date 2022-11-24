@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const { Schema } = mongoose;
+
 const ColumnSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -11,9 +13,11 @@ const ColumnSchema = new mongoose.Schema({
     required: [true, "Please add a order"],
   },
   userId: {
-    type: Number,
-    required: [true, "Please add a userId"],
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: [true, "Please add user id"],
   },
+  cards: [{ type: Schema.Types.ObjectId, ref: "Card" }],
 });
 
 module.exports = mongoose.model("Column", ColumnSchema);
