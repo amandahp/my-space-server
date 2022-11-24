@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 const Column = require("../models/Column");
 const ErrorResponse = require("../utils/errorResponse");
 

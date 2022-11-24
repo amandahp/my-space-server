@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable consistent-return */
 const Card = require("../models/Card");
 const ErrorResponse = require("../utils/errorResponse");
 

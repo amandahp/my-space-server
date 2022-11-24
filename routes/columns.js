@@ -1,5 +1,7 @@
 const express = require("express");
 
+const { protect } = require("../middleware/auth");
+
 const router = express.Router();
 const {
   getColumn,
@@ -8,7 +10,7 @@ const {
   deleteColumn,
 } = require("../controllers/columns");
 
-router.route("/").get(getColumn).post(createColumn);
-router.route("/:id").put(updateColumn).delete(deleteColumn);
+router.route("/").get(protect, getColumn).post(protect, createColumn);
+router.route("/:id").put(protect, updateColumn).delete(protect, deleteColumn);
 
 module.exports = router;

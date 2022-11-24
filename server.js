@@ -1,7 +1,5 @@
-/* eslint-disable no-console */
 const express = require("express");
 const dotenv = require("dotenv");
-// eslint-disable-next-line no-unused-vars
 const colors = require("colors");
 
 const errorHandler = require("./middleware/error");
