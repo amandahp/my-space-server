@@ -50,7 +50,7 @@ exports.login = async (req, res, next) => {
     // Create token
     const token = user.getSignedJwtToken();
 
-    res.status(201).json({ sucess: true, token, userId: user._id });
+    res.status(201).json({ sucess: true, token, userId: user._id, user });
   } catch (err) {
     next(err);
   }
